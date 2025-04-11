@@ -1,0 +1,94 @@
+swagger: '2.0'
+servers:
+  - url: http://127.0.0.1:5000
+definitions:
+  Book:
+    properties:
+      id:
+        type: integer
+        readOnly: true
+      title:
+        type: string
+      author:
+        type: integer
+    required:
+      - title
+      - author
+    type: object
+paths:
+  /api/books:
+    get:
+      tags:
+        - books
+      responses:
+        200:
+          description: Books data
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+    post:
+      tags:
+        - books
+      parameters:
+        - in: body
+          name: new book params
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        201:
+          description: The book has been created
+          schema:
+            $ref: '#/definitions/Book'
+  /api/books/{id}:
+    get:
+      tags:
+        - books
+      summary: Получить книгу по id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID книги
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: книга успешно получена
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Book'
+    put:
+      tags:
+        - books
+      summary: Обновить книгу по ID
+      parameters:
+        - name: id
+          in: path
+          type: integer
+        - in: body
+          name: изменение инфо книги
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '204':
+          description: Книга успешно обновлена
+        '400':
+          description: Ошибка обновления
+    delete:
+      tags:
+        - books
+      summary: Удалить книгу по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID книги
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Книга успешно удалена
+        '404':
+          description: Книга не найдена

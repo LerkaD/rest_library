@@ -1,0 +1,134 @@
+{
+  "definitions": {
+    "Author": {
+      "properties": {
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "first_name",
+        "last_name",
+        "middle_name"
+      ],
+      "type": "object"
+    }
+  },
+  "info": {
+    "title": "AuthorList",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/authors": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "authors data",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Author"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "This is an endpoint for obtaining the authors list.",
+        "tags": [
+          "authors"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "new author params",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The author has been created",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        },
+        "summary": "This is an endpoint for author creation.",
+        "tags": [
+          "authors"
+        ]
+      }
+    },
+    "/api/authors/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "author id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "authors data",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Author"
+              },
+              "type": "array"
+            }
+          },
+          "400" :{
+            "description": "no that author"
+          }
+        },
+        "summary": "This is an endpoint for getting author by id.",
+        "tags": [
+          "authors"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "description": "author id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "authors data deleted "
+          },
+          "400" :{
+            "description": "no that author"
+          }
+        },
+        "summary": "This is an endpoint for deleting author by id.",
+        "tags": [
+          "authors"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}

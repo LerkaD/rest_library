@@ -1,0 +1,27 @@
+swagger: "2.0"
+paths:
+  /api/books:
+    get:
+      tags:
+        - books
+      responses:
+        200:
+          description: Books data
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+definitions:
+  Book:
+    properties:
+      id:
+        type: integer
+        readOnly: true
+      title:
+        type: string
+      author:
+        type: integer
+    required:
+      - title
+      - author
+    type: object
